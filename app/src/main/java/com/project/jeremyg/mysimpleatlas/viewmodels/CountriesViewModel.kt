@@ -10,7 +10,7 @@ class CountriesViewModel() : ViewModel() {
 
     lateinit var countriesRepo: CountriesRepo
 
-    var countries = MutableLiveData<List<Country>>()
+    var countries = MutableLiveData<ArrayList<Country>>()
 
     @Inject
     constructor(countriesRepo: CountriesRepo) : this() {

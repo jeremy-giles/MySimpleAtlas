@@ -1,7 +1,8 @@
-package com.project.jeremyg.mysimpleatlas
+package com.project.jeremyg.mysimpleatlas.views.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.project.jeremyg.mysimpleatlas.R
 
 class MainActivity : AppCompatActivity() {
 

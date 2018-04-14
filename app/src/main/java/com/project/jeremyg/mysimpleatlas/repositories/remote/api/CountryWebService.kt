@@ -10,7 +10,7 @@ interface CountryWebService {
     /**
         https://api.myjson.com/bins/w0lnz
      */
-    @GET("https://api.myjson.com/bins/w0lnz")
+    @GET("/bins/w0lnz")
     fun getCountries(): LiveData<Country>
 
 }

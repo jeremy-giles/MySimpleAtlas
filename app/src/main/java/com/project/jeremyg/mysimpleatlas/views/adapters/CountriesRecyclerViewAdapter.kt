@@ -16,6 +16,8 @@ class CountriesRecyclerViewAdapter(var context: Context) : RecyclerView.Adapter<
 
     private var countries = ArrayList<Country>()
 
+    var clickListener: onCountryClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.country_item, parent, false)
         return ViewHolder(view)
@@ -43,14 +45,24 @@ class CountriesRecyclerViewAdapter(var context: Context) : RecyclerView.Adapter<
         this.notifyDataSetChanged()
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+
         var photo: ImageView
         var name: TextView
 
         init {
             name = itemView.findViewById(R.id.c_name) as TextView
             photo = itemView.findViewById(R.id.c_image) as ImageView
+            itemView.setOnClickListener(this)
         }
 
+        override fun onClick(view: View) {
+            clickListener?.onClick(view, getAdapterPosition());
+        }
+
+    }
+
+    interface onCountryClickListener {
+        fun onClick(view: View, position: Int)
     }
 }

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.project.jeremyg.mysimpleatlas.R
 import com.project.jeremyg.mysimpleatlas.repositories.models.Country
 import com.project.jeremyg.mysimpleatlas.viewmodels.CountriesViewModel
@@ -17,9 +18,11 @@ import org.androidannotations.annotations.Bean
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.ViewById
 import javax.inject.Inject
+import android.content.Intent
+
 
 @EActivity(R.layout.activity_main)
-class MainActivity : DaggerAppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity(), CountriesRecyclerViewAdapter.onCountryClickListener {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     var countriesViewModel: CountriesViewModel? = null
@@ -37,6 +40,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private fun initAdapter() {
         countriesAdapter = CountriesRecyclerViewAdapter(this)
+        countriesAdapter!!.clickListener = this
         recyclerCountriesList?.setLayoutManager(LinearLayoutManager(this))
         recyclerCountriesList?.setAdapter(countriesAdapter)
     }
@@ -48,5 +52,13 @@ class MainActivity : DaggerAppCompatActivity() {
                 countriesAdapter?.updateData(countries = countries)
             }
         })
+    }
+
+    override fun onClick(view: View, position: Int) {
+        val country = countriesAdapter?.getItem(position)
+        val i = Intent(this, CountryActivity_::class.java)
+        i.putExtra("photo", country?.photo)
+        i.putExtra("description", country?.description)
+        startActivity(i)
     }
 }

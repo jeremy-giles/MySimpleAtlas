@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.project.jeremyg.mysimpleatlas.R
+import com.project.jeremyg.mysimpleatlas.di.modules.GlideApp
 import org.androidannotations.annotations.Bean
 
 class CountriesRecyclerViewAdapter(var context: Context) : RecyclerView.Adapter<CountriesRecyclerViewAdapter.ViewHolder>() {
@@ -23,6 +24,10 @@ class CountriesRecyclerViewAdapter(var context: Context) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val country = countries.get(position)
         holder.name.setText(country.name)
+        GlideApp
+                .with(context)
+                .load("file:///android_asset/" + country.thumbnail?.toLowerCase())
+                .into(holder.photo)
     }
 
     override fun getItemCount(): Int {
